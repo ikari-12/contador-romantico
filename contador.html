@@ -14,7 +14,6 @@
         <p id="tempoJuntos"></p>
 
         <img id="fotoJuntos" src="" alt="Foto do casal" style="max-width: 300px; display: none;" />
-
     </div>
 
     <script>
@@ -34,17 +33,29 @@
                 // Obtém a data e hora atuais
                 const dataAtual = new Date();
 
-                // Calcula a diferença de tempo
-                const diff = dataAtual - dataInicial; // em milissegundos
+                // Calcula a diferença de tempo (em milissegundos)
+                const diff = dataAtual - dataInicial;
 
-                // Converte a diferença para dias, horas, minutos e segundos
-                const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const segundos = Math.floor((diff % (1000 * 60)) / 1000);
+                // Cálculo dos anos
+                const anos = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25)); // considerando anos bissextos
 
-                // Exibe o contador
-                document.getElementById("tempoJuntos").innerText = `Já se passaram ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
+                // Cálculo dos dias restantes após subtrair os anos
+                const diasRestantes = diff - (anos * 1000 * 60 * 60 * 24 * 365.25);
+                const dias = Math.floor(diasRestantes / (1000 * 60 * 60 * 24));
+
+                // Cálculo das horas restantes
+                const horasRestantes = diasRestantes - (dias * 1000 * 60 * 60 * 24);
+                const horas = Math.floor(horasRestantes / (1000 * 60 * 60));
+
+                // Cálculo dos minutos restantes
+                const minutosRestantes = horasRestantes - (horas * 1000 * 60 * 60);
+                const minutos = Math.floor(minutosRestantes / (1000 * 60));
+
+                // Cálculo dos segundos restantes
+                const segundos = Math.floor((minutosRestantes - (minutos * 1000 * 60)) / 1000);
+
+                // Exibe o tempo na tela
+                document.getElementById("tempoJuntos").innerText = `${anos} anos, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
 
             } else {
                 document.getElementById("tempoJuntos").innerText = "Nenhuma data foi salva.";
