@@ -38,19 +38,20 @@
 
             if (dataSelecionada && horaSelecionada) {
                 // Garantir que a data e hora estejam no formato correto
-                const dataHoraFinal = new Date(`${dataSelecionada}T${horaSelecionada}:00`);
+                const dataHoraFinal = new Date(dataSelecionada + 'T' + horaSelecionada + ':00');
 
-                // Obter o tempo atual
+                // Obter a data e hora atuais no formato UTC
                 const agora = new Date();
-                const tempoRestante = dataHoraFinal - agora;
+                const agoraUTC = new Date(Date.UTC(agora.getUTCFullYear(), agora.getUTCMonth(), agora.getUTCDate(), agora.getUTCHours(), agora.getUTCMinutes(), agora.getUTCSeconds()));
 
-                // Verificar se o tempo já passou
-                if (tempoRestante <= 0) {
+                // Verificar se a data e hora escolhidas são no futuro
+                if (dataHoraFinal <= agoraUTC) {
                     alert("A data e hora já passaram.");
                     return;
                 }
 
                 // Calcular os tempos em anos, dias, horas, minutos e segundos
+                const tempoRestante = dataHoraFinal - agoraUTC;
                 const segundos = Math.floor(tempoRestante / 1000);
                 const minutos = Math.floor(segundos / 60);
                 const horas = Math.floor(minutos / 60);
