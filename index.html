@@ -3,82 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado do Contador Romântico</title>
+    <title>Contador de Tempo - Juntos a</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="resultado-container">
-        <h1>Contador Romântico</h1>
-        <p class="romantico">Juntos a cada segundo...</p>
-        
-        <!-- Exibição do contador -->
-        <div id="resultado">
-            <p id="contador">Carregando...</p>
-            <img id="fotoImg" class="foto" src="" alt="Imagem Romântica">
-        </div>
-        
-        <button onclick="window.history.back();">Voltar</button>
+
+    <div class="container">
+        <h1>Contador de Tempo <span class="romantico">Juntos a</span></h1>
+
+        <p class="introducao">Insira uma data e uma foto especial para ver há quanto tempo vocês estão juntos!</p>
+
+        <label for="dataInput">Insira uma data e hora (YYYY-MM-DD HH:MM:SS):</label>
+        <input type="text" id="dataInput" placeholder="Exemplo: 2020-01-01 00:00:00" />
+
+        <label for="fotoInput">Escolha uma foto para exibir:</label>
+        <input type="file" id="fotoInput" accept="image/*" />
+
+        <button onclick="salvarDados()">Iniciar Contador</button>
     </div>
 
     <script>
-        window.onload = function() {
-            // Recuperando a data, hora e foto do localStorage
-            const dataSelecionada = localStorage.getItem('dataSelecionada');
-            const horaSelecionada = localStorage.getItem('horaSelecionada');
-            const fotoSelecionada = localStorage.getItem('fotoSelecionada');
+        function salvarDados() {
+            const data = document.getElementById("dataInput").value;
+            const foto = document.getElementById("fotoInput").files[0];
 
-            // Verificando se a data e hora foram salvas corretamente
-            if (!dataSelecionada || !horaSelecionada) {
-                alert("Erro ao carregar a data e hora. Tente novamente.");
+            if (!data) {
+                alert("Por favor, insira uma data válida!");
                 return;
             }
 
-            // Exibir no console para debugging
-            console.log("Data selecionada: ", dataSelecionada);
-            console.log("Hora selecionada: ", horaSelecionada);
+            localStorage.setItem("dataSelecionada", data);
 
-            // Criar o objeto de data e hora final
-            const dataHoraFinal = new Date(dataSelecionada + 'T' + horaSelecionada);
-            const agora = new Date();
-
-            // Exibir no console a data e hora calculada
-            console.log("Data e Hora Final: ", dataHoraFinal);
-            console.log("Data e Hora Atual: ", agora);
-
-            // Verificar se a data e hora escolhidas são no futuro
-            if (dataHoraFinal <= agora) {
-                alert("A data e hora já passaram.");
-                return;
-            }
-
-            // Função para calcular o tempo restante
-            function calcularTempo() {
-                const tempoRestante = dataHoraFinal - agora;
-                
-                // Verificar se tempoRestante é um número válido
-                if (isNaN(tempoRestante)) {
-                    alert("Erro no cálculo do tempo. Tente novamente.");
-                    return;
-                }
-
-                const segundos = Math.floor(tempoRestante / 1000);
-                const minutos = Math.floor(segundos / 60);
-                const horas = Math.floor(minutos / 60);
-                const dias = Math.floor(horas / 24);
-                const anos = Math.floor(dias / 365);
-
-                const textoContador = `${anos} anos, ${dias % 365} dias, ${horas % 24} horas, ${minutos % 60} minutos, ${segundos % 60} segundos`;
-                document.getElementById("contador").textContent = textoContador;
-            }
-
-            // Atualizar a cada segundo
-            setInterval(calcularTempo, 1000);
-
-            // Exibir a foto, se houver
-            if (fotoSelecionada) {
-                document.getElementById("fotoImg").src = fotoSelecionada;
+            if (foto) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    localStorage.setItem("fotoSelecionada", e.target.result);
+                    window.location.href = "contador.html";
+                };
+                reader.readAsDataURL(foto);
+            } else {
+                window.location.href = "contador.html";
             }
         }
     </script>
+
 </body>
 </html>
