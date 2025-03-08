@@ -26,14 +26,23 @@
             const horaSelecionada = localStorage.getItem('horaSelecionada');
             const fotoSelecionada = localStorage.getItem('fotoSelecionada');
 
+            // Verificar se os dados necessários foram passados
             if (!dataSelecionada || !horaSelecionada) {
                 alert("Erro ao carregar a data e hora. Tente novamente.");
                 return;
             }
 
-            // Criar o objeto de data e hora final
-            const dataHoraFinal = new Date(dataSelecionada + 'T' + horaSelecionada + ':00');
+            // Exibir no console para debugging
+            console.log("Data selecionada: ", dataSelecionada);
+            console.log("Hora selecionada: ", horaSelecionada);
+
+            // Formatar a data de forma correta
+            const dataHoraFinal = new Date(dataSelecionada + 'T' + horaSelecionada);
             const agora = new Date();
+
+            // Exibir no console a data e hora calculada
+            console.log("Data e Hora Final: ", dataHoraFinal);
+            console.log("Data e Hora Atual: ", agora);
 
             // Verificar se a data e hora escolhidas são no futuro
             if (dataHoraFinal <= agora) {
@@ -44,6 +53,13 @@
             // Função para calcular o tempo restante
             function calcularTempo() {
                 const tempoRestante = dataHoraFinal - agora;
+                
+                // Verificar se tempoRestante é um número válido
+                if (isNaN(tempoRestante)) {
+                    alert("Erro no cálculo do tempo. Tente novamente.");
+                    return;
+                }
+
                 const segundos = Math.floor(tempoRestante / 1000);
                 const minutos = Math.floor(segundos / 60);
                 const horas = Math.floor(minutos / 60);
