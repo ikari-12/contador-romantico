@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contador de Tempo - Juntos a</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> <!-- Biblioteca QR Code -->
+    <!-- Incluir a biblioteca QRCode.js -->
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -23,7 +24,7 @@
         <button onclick="salvarDados()">Iniciar Contador</button>
     </div>
 
-    <!-- Aqui você pode adicionar o div onde o QR code será gerado -->
+    <!-- Espaço onde o QR Code será gerado -->
     <div id="qrcode"></div>
 
     <script>
@@ -50,14 +51,14 @@
             }
         }
 
-        // Gerar o QR Code para a página de resultado
+        // Gerar o QR Code para a página de pesquisa específica
         var qrcode = new QRCode(document.getElementById("qrcode"), {
-            text: "https://seusite.com/contador.html",  // Aqui você coloca o link do seu site
+            text: "https://www.google.com/search?q=relacionamento+juntos+há",  // Link da pesquisa
             width: 128,  // Tamanho do QR Code
-            height: 128,
-            colorDark : "#000000",
-            colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.H
+            height: 128,  // Tamanho do QR Code
+            colorDark : "#000000",  // Cor do QR Code
+            colorLight : "#ffffff",  // Cor de fundo do QR Code
+            correctLevel : QRCode.CorrectLevel.H  // Nível de correção de erros
         });
     </script>
 
