@@ -1,93 +1,63 @@
-/* Fundo suave e escuro */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #181818;
-    color: #fff;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, #ffcccc, #ff9999);
+    color: white;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    position: relative;
 }
 
-/* Estilo do contêiner principal */
 .container {
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.5);
-    max-width: 320px; /* Menor tamanho */
-    width: 100%;
-    z-index: 1;
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 50px;
 }
 
-/* Título bonito com sombreamento */
 h1 {
-    font-size: 26px; /* Título mais compacto */
-    color: #ff5c5c;
-    text-shadow: 2px 2px 6px rgba(255, 0, 0, 0.6);
-    margin-bottom: 15px;
+    font-size: 28px;
 }
 
-/* Texto da frase romântica */
 .romantico {
-    color: #ff4d4d;
-    font-size: 20px;
-    font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
-    margin-top: 15px;
+    color: #ff3333;
+    font-style: italic;
 }
 
-/* Estilo dos campos de entrada */
 input, button {
-    width: 100%;
-    padding: 12px;
+    margin: 10px;
+    padding: 10px;
     font-size: 16px;
-    margin: 10px 0;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
-/* Entrada de texto */
 input {
-    background-color: #222;
-    color: white;
-    border: 1px solid #ff5c5c;
+    width: 80%;
+    padding: 8px;
 }
 
-/* Botão romântico */
 button {
-    background-color: #ff5c5c;
+    background-color: #ff3333;
     color: white;
-    font-weight: bold;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.8);
     cursor: pointer;
-    transition: 0.3s ease;
 }
 
 button:hover {
-    background-color: #e60000;
-    transform: scale(1.05);
+    background-color: #cc0000;
 }
 
-/* Contador com mais destaque */
 .contador {
-    font-size: 28px;
-    font-weight: bold;
-    color: #ff4d4d;
-    text-shadow: 2px 2px 6px rgba(255, 0, 0, 0.8);
-    margin-top: 15px;
+    font-size: 20px;
+    margin-top: 20px;
 }
 
-/* Estilo da foto exibida */
 .foto {
-    width: 70%;
-    max-width: 180px;
+    width: 100%;
+    max-width: 300px;
     border-radius: 10px;
-    margin-top: 10px;
-    box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.7);
+    margin-top: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
