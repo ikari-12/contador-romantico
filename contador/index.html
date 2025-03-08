@@ -7,25 +7,31 @@
     <link rel="stylesheet" href="style.css"> <!-- Link para o CSS -->
 </head>
 <body>
-    <h1>Contador de Tempo <span class="romantico">Juntos a</span></h1>
 
-    <p class="introducao">Insira a data, hora, minutos e segundos, e faça upload de uma foto para ver o tempo que passou desde essa data. Vamos fazer essa contagem juntos!</p>
+    <div class="container">
+        <h1>Contador de Tempo <span class="romantico">Juntos a</span></h1>
 
-    <!-- Formulário para data e hora -->
-    <label for="dataInput">Insira uma data (YYYY-MM-DD HH:MM:SS): </label>
-    <input type="text" id="dataInput" placeholder="Exemplo: 2020-01-01 00:00:00" />
+        <p class="introducao">Insira uma data e uma foto especial para acompanhar o tempo que já passaram juntos!</p>
 
-    <!-- Campo para o upload da foto -->
-    <label for="fotoInput">Escolha uma foto para exibir: </label>
-    <input type="file" id="fotoInput" accept="image/*" />
+        <!-- Campo para inserir a data e a hora -->
+        <label for="dataInput">Insira uma data e hora (YYYY-MM-DD HH:MM:SS):</label>
+        <input type="text" id="dataInput" placeholder="Exemplo: 2020-01-01 00:00:00" />
 
-    <button onclick="iniciarContador()">Iniciar Contador</button>
+        <!-- Campo para o upload da foto -->
+        <label for="fotoInput">Escolha uma foto para exibir:</label>
+        <input type="file" id="fotoInput" accept="image/*" />
 
-    <div id="contador" class="contador"></div>
+        <button onclick="iniciarContador()">Iniciar Contador</button>
 
-    <!-- Div para exibir a foto -->
-    <div id="fotoExibida"></div>
+        <!-- Contador -->
+        <div id="contador" class="contador"></div>
 
-    <script src="script.js"></script> <!-- Link para o JavaScript -->
+        <!-- Área para exibir a foto -->
+        <div id="fotoExibida"></div>
+    </div>
+
+    <!-- Link para o JavaScript -->
+    <script src="script.js" defer></script>
+
 </body>
 </html>
