@@ -5,18 +5,144 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contador de Tempo - Juntos a</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #e91e63;
+            margin-bottom: 20px;
+        }
+
+        .romantico {
+            color: #f06292;
+        }
+
+        .introducao {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: block;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #e91e63;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #f06292;
+        }
+
+        #tempoJuntos {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        #fotoJuntos {
+            max-width: 100%;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos para centralizar o conteúdo */
+        .container img {
+            display: block;
+            margin: 0 auto;
+            max-width: 80%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Contador de Tempo <span class="romantico">Juntos a</span></h1>
 
+        <p class="introducao">Insira uma data e uma foto especial para ver há quanto tempo vocês estão juntos!</p>
+
+        <label for="dataInput">Insira uma data e hora (YYYY-MM-DD HH:MM:SS):</label>
+        <input type="text" id="dataInput" placeholder="Exemplo: 2020-01-01 00:00:00" />
+
+        <label for="fotoInput">Escolha uma foto para exibir:</label>
+        <input type="file" id="fotoInput" accept="image/*" />
+
+        <button onclick="salvarDados()">Iniciar Contador</button>
+
+        <!-- Mostra o contador de tempo -->
         <p id="tempoJuntos"></p>
 
-        <img id="fotoJuntos" src="" alt="Foto do casal" style="max-width: 300px; display: none;" />
+        <!-- Exibe a foto, se houver uma salva -->
+        <img id="fotoJuntos" src="" alt="Foto do casal" style="display: none;" />
     </div>
 
     <script>
+        function salvarDados() {
+            const data = document.getElementById("dataInput").value;
+            const foto = document.getElementById("fotoInput").files[0];
+
+            if (!data) {
+                alert("Por favor, insira uma data válida!");
+                return;
+            }
+
+            localStorage.setItem("dataSelecionada", data);
+
+            if (foto) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    localStorage.setItem("fotoSelecionada", e.target.result);
+                    window.location.href = "contador.html";
+                };
+                reader.readAsDataURL(foto);
+            } else {
+                window.location.href = "contador.html";
+            }
+        }
+
         window.onload = function () {
             const dataSelecionada = localStorage.getItem("dataSelecionada");
             const fotoSelecionada = localStorage.getItem("fotoSelecionada");
