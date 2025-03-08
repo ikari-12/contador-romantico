@@ -36,46 +36,8 @@
             color: #f06292;
         }
 
-        .introducao {
-            font-size: 1.2em;
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-size: 1.1em;
-            margin-bottom: 10px;
-            display: block;
-            color: #333;
-        }
-
-        input[type="text"],
-        input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            font-size: 1em;
-        }
-
-        button {
-            background-color: #e91e63;
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.1em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #f06292;
-        }
-
         #tempoJuntos {
-            font-size: 2em;
+            font-size: 1.5em;
             font-weight: bold;
             color: #333;
             margin-top: 20px;
@@ -83,7 +45,8 @@
 
         #fotoJuntos {
             display: block;
-            max-width: 100%;
+            max-width: 80%;
+            height: auto;
             margin: 30px auto 0;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -95,47 +58,12 @@
     <div class="container">
         <h1>Contador de Tempo <span class="romantico">Juntos a</span></h1>
 
-        <p class="introducao">Insira uma data e uma foto especial para ver há quanto tempo vocês estão juntos!</p>
-
-        <label for="dataInput">Insira uma data e hora (YYYY-MM-DD HH:MM:SS):</label>
-        <input type="text" id="dataInput" placeholder="Exemplo: 2020-01-01 00:00:00" />
-
-        <label for="fotoInput">Escolha uma foto para exibir:</label>
-        <input type="file" id="fotoInput" accept="image/*" />
-
-        <button onclick="salvarDados()">Iniciar Contador</button>
-
-        <!-- Mostra o contador de tempo -->
         <p id="tempoJuntos"></p>
 
-        <!-- Exibe a foto, se houver uma salva -->
-        <img id="fotoJuntos" src="" alt="Foto do casal" style="display: none;" />
+        <img id="fotoJuntos" src="" alt="Foto do casal" style="max-width: 300px; display: none;" />
     </div>
 
     <script>
-        function salvarDados() {
-            const data = document.getElementById("dataInput").value;
-            const foto = document.getElementById("fotoInput").files[0];
-
-            if (!data) {
-                alert("Por favor, insira uma data válida!");
-                return;
-            }
-
-            localStorage.setItem("dataSelecionada", data);
-
-            if (foto) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    localStorage.setItem("fotoSelecionada", e.target.result);
-                    window.location.href = "contador.html";
-                };
-                reader.readAsDataURL(foto);
-            } else {
-                window.location.href = "contador.html";
-            }
-        }
-
         window.onload = function () {
             const dataSelecionada = localStorage.getItem("dataSelecionada");
             const fotoSelecionada = localStorage.getItem("fotoSelecionada");
@@ -152,29 +80,17 @@
                 // Obtém a data e hora atuais
                 const dataAtual = new Date();
 
-                // Calcula a diferença de tempo (em milissegundos)
-                const diff = dataAtual - dataInicial;
+                // Calcula a diferença de tempo
+                const diff = dataAtual - dataInicial; // em milissegundos
 
-                // Cálculo dos anos
-                const anos = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25)); // considerando anos bissextos
+                // Converte a diferença para dias, horas, minutos e segundos
+                const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((diff % (1000 * 60)) / 1000);
 
-                // Cálculo dos dias restantes após subtrair os anos
-                const diasRestantes = diff - (anos * 1000 * 60 * 60 * 24 * 365.25);
-                const dias = Math.floor(diasRestantes / (1000 * 60 * 60 * 24));
-
-                // Cálculo das horas restantes
-                const horasRestantes = diasRestantes - (dias * 1000 * 60 * 60 * 24);
-                const horas = Math.floor(horasRestantes / (1000 * 60 * 60));
-
-                // Cálculo dos minutos restantes
-                const minutosRestantes = horasRestantes - (horas * 1000 * 60 * 60);
-                const minutos = Math.floor(minutosRestantes / (1000 * 60));
-
-                // Cálculo dos segundos restantes
-                const segundos = Math.floor((minutosRestantes - (minutos * 1000 * 60)) / 1000);
-
-                // Exibe o tempo na tela
-                document.getElementById("tempoJuntos").innerText = `${anos} anos, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
+                // Exibe o contador
+                document.getElementById("tempoJuntos").innerText = `Já se passaram ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
 
             } else {
                 document.getElementById("tempoJuntos").innerText = "Nenhuma data foi salva.";
