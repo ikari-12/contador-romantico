@@ -18,14 +18,16 @@ function calcularTempo() {
             return;
         }
 
+        // Calculando a diferença de anos, meses, dias, horas, minutos e segundos
         const anos = Math.floor(diferenca / (1000 * 60 * 60 * 24 * 365));
-        const dias = Math.floor((diferenca % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
+        const meses = Math.floor((diferenca % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
+        const dias = Math.floor((diferenca % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
         const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
         const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
 
         document.getElementById("contador").innerHTML = `
-            <p><strong>${anos} anos, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos</strong></p>
+            <p><strong>${anos} anos, ${meses} meses, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos</strong></p>
         `;
     }, 1000);
 
