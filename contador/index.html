@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de Tempo - Juntos a</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link para o CSS -->
+</head>
+<body>
+    <h1>Contador de Tempo <span class="romantico">Juntos a</span></h1>
+
+    <p class="introducao">Insira a data, hora, minutos e segundos, e faça upload de uma foto para ver o tempo que passou desde essa data. Vamos fazer essa contagem juntos!</p>
+
+    <!-- Formulário para data e hora -->
+    <label for="dataInput">Insira uma data (YYYY-MM-DD HH:MM:SS): </label>
+    <input type="text" id="dataInput" placeholder="Exemplo: 2020-01-01 00:00:00" />
+
+    <!-- Campo para o upload da foto -->
+    <label for="fotoInput">Escolha uma foto para exibir: </label>
+    <input type="file" id="fotoInput" accept="image/*" />
+
+    <button onclick="iniciarContador()">Iniciar Contador</button>
+
+    <div id="contador" class="contador"></div>
+
+    <!-- Div para exibir a foto -->
+    <div id="fotoExibida"></div>
+
+    <script src="script.js"></script> <!-- Link para o JavaScript -->
+</body>
+</html>
