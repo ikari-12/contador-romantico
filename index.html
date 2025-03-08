@@ -22,11 +22,12 @@
 
     <script>
         window.onload = function() {
+            // Recuperando a data, hora e foto do localStorage
             const dataSelecionada = localStorage.getItem('dataSelecionada');
             const horaSelecionada = localStorage.getItem('horaSelecionada');
             const fotoSelecionada = localStorage.getItem('fotoSelecionada');
 
-            // Verificar se os dados necessários foram passados
+            // Verificando se a data e hora foram salvas corretamente
             if (!dataSelecionada || !horaSelecionada) {
                 alert("Erro ao carregar a data e hora. Tente novamente.");
                 return;
@@ -36,7 +37,7 @@
             console.log("Data selecionada: ", dataSelecionada);
             console.log("Hora selecionada: ", horaSelecionada);
 
-            // Formatar a data de forma correta
+            // Criar o objeto de data e hora final
             const dataHoraFinal = new Date(dataSelecionada + 'T' + horaSelecionada);
             const agora = new Date();
 
