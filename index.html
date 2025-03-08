@@ -12,27 +12,29 @@
         <p class="romantico">Juntos a cada segundo!</p>
 
         <!-- Formulário para inserção de data e hora -->
-        <form id="form">
+        <form id="form" enctype="multipart/form-data">
             <label for="data">Escolha uma data:</label>
             <input type="date" id="data" name="data" required>
             <label for="hora">Escolha uma hora:</label>
             <input type="time" id="hora" name="hora" required>
+            <label for="foto">Escolha uma foto:</label>
+            <input type="file" id="foto" name="foto" accept="image/*">
             <button type="submit">Iniciar Contador</button>
         </form>
 
         <!-- Exibição do contador e imagem -->
         <div id="resultado" style="display:none;">
             <p class="contador" id="contador"></p>
-            <img id="foto" class="foto" src="sua-imagem.jpg" alt="Imagem Romântica">
+            <img id="fotoImg" class="foto" src="" alt="Imagem Romântica">
         </div>
     </div>
 
     <script>
         // Função para calcular o tempo restante
         function calcularTempo() {
-            // Obter os valores dos campos de data e hora
             const dataSelecionada = document.getElementById("data").value;
             const horaSelecionada = document.getElementById("hora").value;
+            const fotoSelecionada = document.getElementById("foto").files[0]; // Arquivo de imagem
 
             if (dataSelecionada && horaSelecionada) {
                 // Garantir que a data e hora estejam no formato correto
@@ -42,6 +44,7 @@
                 const agora = new Date();
                 const tempoRestante = dataHoraFinal - agora;
 
+                // Verificar se o tempo já passou
                 if (tempoRestante <= 0) {
                     alert("A data e hora já passaram.");
                     return;
@@ -56,8 +59,18 @@
 
                 // Exibir o contador
                 const textoContador = `${anos} anos, ${dias % 365} dias, ${horas % 24} horas, ${minutos % 60} minutos, ${segundos % 60} segundos`;
-
                 document.getElementById("contador").textContent = textoContador;
+
+                // Exibir a foto, se houver
+                if (fotoSelecionada) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById("fotoImg").src = e.target.result;
+                    };
+                    reader.readAsDataURL(fotoSelecionada);
+                }
+
+                // Mostrar o resultado
                 document.getElementById("resultado").style.display = 'block';
             } else {
                 alert("Por favor, insira a data e hora.");
