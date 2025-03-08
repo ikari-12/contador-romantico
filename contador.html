@@ -3,107 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contador de Tempo - Juntos a</title>
+    <title>Resultado do Contador Romântico</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 80%;
-            max-width: 600px;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            color: #e91e63;
-            margin-bottom: 20px;
-        }
-
-        .romantico {
-            color: #f06292;
-        }
-
-        #tempoJuntos {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #333;
-            margin-top: 20px;
-        }
-
-        #fotoJuntos {
-            display: block;
-            max-width: 80%;
-            height: auto;
-            margin: 30px auto 0;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-    </style>
 </head>
 <body>
-
-    <div class="container">
-        <h1>Contador de Tempo <span class="romantico">Juntos a</span></h1>
-
-        <p id="tempoJuntos"></p>
-
-        <img id="fotoJuntos" src="" alt="Foto do casal" style="max-width: 300px; display: none;" />
+    <div class="resultado-container">
+        <h1>Contador Romântico</h1>
+        <p class="romantico">Juntos a cada segundo...</p>
+        
+        <!-- Exibição do contador -->
+        <div id="resultado">
+            <p id="contador">Carregando...</p>
+            <img id="fotoImg" class="foto" src="" alt="Imagem Romântica">
+        </div>
+        
+        <button onclick="window.history.back();">Voltar</button>
     </div>
 
     <script>
-        window.onload = function () {
-            const dataSelecionada = localStorage.getItem("dataSelecionada");
-            const fotoSelecionada = localStorage.getItem("fotoSelecionada");
+        window.onload = function() {
+            const dataSelecionada = localStorage.getItem('dataSelecionada');
+            const horaSelecionada = localStorage.getItem('horaSelecionada');
+            const fotoSelecionada = localStorage.getItem('fotoSelecionada');
 
-            if (dataSelecionada) {
-                // Converte a string de data para um objeto Date
-                const dataInicial = new Date(dataSelecionada);
+            // Verificar se a data e hora foram salvas corretamente
+            if (!dataSelecionada || !horaSelecionada) {
+                alert("Erro ao carregar a data e hora. Tente novamente.");
+                return;
+            }
 
-                if (isNaN(dataInicial)) {
-                    alert("A data salva é inválida.");
+            // Exibir no console para debugging
+            console.log("Data selecionada: ", dataSelecionada);
+            console.log("Hora selecionada: ", horaSelecionada);
+
+            // Criar o objeto de data e hora final
+            const dataHoraFinal = new Date(dataSelecionada + 'T' + horaSelecionada);
+            
+            // Função para calcular o tempo restante
+            function calcularTempo() {
+                const agora = new Date();
+                const tempoRestante = dataHoraFinal - agora;
+
+                // Verificar se tempoRestante é um número válido
+                if (isNaN(tempoRestante)) {
+                    alert("Erro no cálculo do tempo. Tente novamente.");
                     return;
                 }
 
-                // Obtém a data e hora atuais
-                const dataAtual = new Date();
+                // Cálculo de anos, meses, dias, horas, minutos, segundos
+                const anos = Math.floor(tempoRestante / (1000 * 60 * 60 * 24 * 365));
+                const meses = Math.floor((tempoRestante % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
+                const dias = Math.floor((tempoRestante % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((tempoRestante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((tempoRestante % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((tempoRestante % (1000 * 60)) / 1000);
 
-                // Calcula a diferença de tempo
-                const diff = dataAtual - dataInicial; // em milissegundos
-
-                // Converte a diferença para dias, horas, minutos e segundos
-                const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const segundos = Math.floor((diff % (1000 * 60)) / 1000);
-
-                // Exibe o contador
-                document.getElementById("tempoJuntos").innerText = `Já se passaram ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
-
-            } else {
-                document.getElementById("tempoJuntos").innerText = "Nenhuma data foi salva.";
+                // Formatar e exibir o contador
+                const textoContador = `${anos} anos, ${meses} meses, ${dias} dias, ${horas} horas, ${minutos} minutos, ${segundos} segundos`;
+                document.getElementById("contador").textContent = textoContador;
             }
 
-            // Se houver uma foto salva, exibe-a
+            // Atualizar a cada segundo
+            setInterval(calcularTempo, 1000);
+
+            // Exibir a foto, se houver
             if (fotoSelecionada) {
-                const fotoElement = document.getElementById("fotoJuntos");
-                fotoElement.src = fotoSelecionada;
-                fotoElement.style.display = "block";
+                document.getElementById("fotoImg").src = fotoSelecionada;
             }
-        };
+        }
     </script>
-
 </body>
 </html>
