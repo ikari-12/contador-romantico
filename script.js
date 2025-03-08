@@ -42,13 +42,13 @@ function criarCoracao() {
     heart.classList.add("heart");
     heart.innerHTML = "❤️";
     heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.animationDuration = Math.random() * 3 + 2 + "s"; // Entre 2s e 5s
+    heart.style.animationDuration = Math.random() * 3 + 3 + "s"; // Entre 3s e 6s
 
     document.body.appendChild(heart);
 
     setTimeout(() => {
         heart.remove();
-    }, 5000);
+    }, 6000);
 }
 
 function voltar() {
