@@ -3,49 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contador de Tempo - Juntos a</title>
+    <title>Contador Romântico</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
-        <h1>Contador de Tempo <span class="romantico">Juntos a</span></h1>
+        <h1>Contador Romântico</h1>
+        <p class="romantico">Vamos contar o tempo juntos...</p>
 
-        <p class="introducao">Insira uma data e uma foto especial para ver há quanto tempo vocês estão juntos!</p>
-
-        <label for="dataInput">Insira uma data e hora (YYYY-MM-DD HH:MM:SS):</label>
-        <input type="text" id="dataInput" placeholder="Exemplo: 2020-01-01 00:00:00" />
-
-        <label for="fotoInput">Escolha uma foto para exibir:</label>
-        <input type="file" id="fotoInput" accept="image/*" />
-
-        <button onclick="salvarDados()">Iniciar Contador</button>
+        <form action="contador.html">
+            <label for="data">Escolha a data:</label><br>
+            <input type="datetime-local" id="data" required><br><br>
+            <label for="foto">Escolha uma foto:</label><br>
+            <input type="file" id="foto" accept="image/*" required><br><br>
+            <button type="submit">Contar o Tempo</button>
+        </form>
     </div>
 
-    <script>
-        function salvarDados() {
-            const data = document.getElementById("dataInput").value;
-            const foto = document.getElementById("fotoInput").files[0];
-
-            if (!data) {
-                alert("Por favor, insira uma data válida!");
-                return;
-            }
-
-            localStorage.setItem("dataSelecionada", data);
-
-            if (foto) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    localStorage.setItem("fotoSelecionada", e.target.result);
-                    window.location.href = "contador.html";
-                };
-                reader.readAsDataURL(foto);
-            } else {
-                window.location.href = "contador.html";
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 
 </body>
 </html>
