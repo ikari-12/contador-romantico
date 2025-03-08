@@ -91,14 +91,3 @@ button:hover {
     margin-top: 10px;
     box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.7);
 }
-
-/* Coração fixo grande no fundo */
-.heart {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 60px; /* Aumentei o coração */
-    color: #ff5c5c;
-    z-index: -1;
-}
