@@ -32,23 +32,6 @@ function calcularTempo() {
     if (fotoSelecionada) {
         document.getElementById("fotoExibida").innerHTML = `<img src="${fotoSelecionada}" class="foto">`;
     }
-
-    // Iniciar a animação de corações caindo
-    setInterval(criarCoracao, 500);
-}
-
-function criarCoracao() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.animationDuration = Math.random() * 3 + 3 + "s"; // Entre 3s e 6s
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 6000);
 }
 
 function voltar() {
