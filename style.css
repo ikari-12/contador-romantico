@@ -11,42 +11,41 @@ body {
     height: 100vh;
     text-align: center;
     position: relative;
-    overflow: hidden;
 }
 
 /* Estilo do contêiner principal */
 .container {
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 20px;
-    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    border-radius: 12px;
     box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.5);
-    max-width: 380px; /* Reduzi o tamanho */
+    max-width: 320px; /* Menor tamanho */
     width: 100%;
     z-index: 1;
 }
 
 /* Título bonito com sombreamento */
 h1 {
-    font-size: 28px; /* Reduzi o tamanho do título */
+    font-size: 26px; /* Título mais compacto */
     color: #ff5c5c;
     text-shadow: 2px 2px 6px rgba(255, 0, 0, 0.6);
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 /* Texto da frase romântica */
 .romantico {
     color: #ff4d4d;
-    font-size: 24px; /* Reduzi o tamanho da frase romântica */
+    font-size: 20px; /* Reduzi o tamanho da frase */
     font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 /* Estilo dos campos de entrada */
 input, button {
-    width: 80%;
-    padding: 10px;
-    font-size: 16px;
+    width: 75%;
+    padding: 8px;
+    font-size: 14px; /* Tamanho menor para os inputs */
     margin: 10px 0;
     border: none;
     border-radius: 10px;
@@ -77,37 +76,29 @@ button:hover {
 
 /* Contador com mais destaque */
 .contador {
-    font-size: 30px; /* Diminuí o tamanho do contador */
+    font-size: 28px; /* Tamanho menor do contador */
     font-weight: bold;
     color: #ff4d4d;
     text-shadow: 2px 2px 6px rgba(255, 0, 0, 0.8);
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 /* Estilo da foto exibida */
 .foto {
-    width: 70%;  /* Reduzi o tamanho da imagem */
-    max-width: 220px;  /* Reduzi o tamanho máximo */
+    width: 60%;  /* Reduzi ainda mais o tamanho da imagem */
+    max-width: 180px;
     border-radius: 10px;
-    margin-top: 15px;
-    box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.7);
+    margin-top: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.7);
 }
 
-/* Corações caindo mais suaves */
+/* Coração fixo grande no fundo */
 .heart {
     position: absolute;
-    font-size: 25px;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 60px; /* Aumentei o coração */
     color: #ff5c5c;
-    animation: fall 6s linear infinite;
-    opacity: 0.8;
-}
-
-/* Animação de corações caindo */
-@keyframes fall {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(100vh);
-    }
+    z-index: -1;
 }
