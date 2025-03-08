@@ -3,49 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contador de Tempo - Juntos a</title>
+    <title>Resultado do Contador Romântico</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div class="container">
-        <h1>Contador de Tempo <span class="romantico">Juntos a</span></h1>
-
-        <p class="introducao">Insira uma data e uma foto especial para ver há quanto tempo vocês estão juntos!</p>
-
-        <label for="dataInput">Insira uma data e hora (YYYY-MM-DD HH:MM:SS):</label>
-        <input type="text" id="dataInput" placeholder="Exemplo: 2020-01-01 00:00:00" />
-
-        <label for="fotoInput">Escolha uma foto para exibir:</label>
-        <input type="file" id="fotoInput" accept="image/*" />
-
-        <button onclick="salvarDados()">Iniciar Contador</button>
+    <div class="resultado-container">
+        <h1>Contador Romântico</h1>
+        <p class="romantico">Juntos a cada segundo...</p>
+        
+        <!-- Exibição do contador -->
+        <div id="resultado">
+            <p id="contador">Carregando...</p>
+            <img id="fotoImg" class="foto" src="" alt="Imagem Romântica">
+        </div>
+        
+        <button onclick="window.history.back();">Voltar</button>
     </div>
 
     <script>
-        function salvarDados() {
-            const data = document.getElementById("dataInput").value;
-            const foto = document.getElementById("fotoInput").files[0];
+        window.onload = function() {
+            const dataSelecionada = localStorage.getItem('dataSelecionada');
+            const horaSelecionada = localStorage.getItem('horaSelecionada');
+            const fotoSelecionada = localStorage.getItem('fotoSelecionada');
 
-            if (!data) {
-                alert("Por favor, insira uma data válida!");
+            if (!dataSelecionada || !horaSelecionada) {
+                alert("Erro ao carregar a data e hora. Tente novamente.");
                 return;
             }
 
-            localStorage.setItem("dataSelecionada", data);
+            // Criar o objeto de data e hora final
+            const dataHoraFinal = new Date(dataSelecionada + 'T' + horaSelecionada + ':00');
+            const agora = new Date();
 
-            if (foto) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    localStorage.setItem("fotoSelecionada", e.target.result);
-                    window.location.href = "contador.html";
-                };
-                reader.readAsDataURL(foto);
-            } else {
-                window.location.href = "contador.html";
+            // Verificar se a data e hora escolhidas são no futuro
+            if (dataHoraFinal <= agora) {
+                alert("A data e hora já passaram.");
+                return;
+            }
+
+            // Função para calcular o tempo restante
+            function calcularTempo() {
+                const tempoRestante = dataHoraFinal - agora;
+                const segundos = Math.floor(tempoRestante / 1000);
+                const minutos = Math.floor(segundos / 60);
+                const horas = Math.floor(minutos / 60);
+                const dias = Math.floor(horas / 24);
+                const anos = Math.floor(dias / 365);
+
+                const textoContador = `${anos} anos, ${dias % 365} dias, ${horas % 24} horas, ${minutos % 60} minutos, ${segundos % 60} segundos`;
+                document.getElementById("contador").textContent = textoContador;
+            }
+
+            // Atualizar a cada segundo
+            setInterval(calcularTempo, 1000);
+
+            // Exibir a foto, se houver
+            if (fotoSelecionada) {
+                document.getElementById("fotoImg").src = fotoSelecionada;
             }
         }
     </script>
-
 </body>
 </html>
