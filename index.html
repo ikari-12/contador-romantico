@@ -3,85 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contador Romântico</title>
+    <title>Contador de Tempo - Juntos a</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div class="container">
-        <h1>Contador Romântico</h1>
-        <p class="romantico">Juntos a cada segundo!</p>
+        <h1>Contador de Tempo <span class="romantico">Juntos a</span></h1>
 
-        <!-- Formulário para inserção de data e hora -->
-        <form id="form" enctype="multipart/form-data">
-            <label for="data">Escolha uma data:</label>
-            <input type="date" id="data" name="data" required>
-            <label for="hora">Escolha uma hora:</label>
-            <input type="time" id="hora" name="hora" required>
-            <label for="foto">Escolha uma foto:</label>
-            <input type="file" id="foto" name="foto" accept="image/*">
-            <button type="submit">Iniciar Contador</button>
-        </form>
+        <p class="introducao">Insira uma data e uma foto especial para ver há quanto tempo vocês estão juntos!</p>
 
-        <!-- Exibição do contador e imagem -->
-        <div id="resultado" style="display:none;">
-            <p class="contador" id="contador"></p>
-            <img id="fotoImg" class="foto" src="" alt="Imagem Romântica">
-        </div>
+        <label for="dataInput">Insira uma data e hora (YYYY-MM-DD HH:MM:SS):</label>
+        <input type="text" id="dataInput" placeholder="Exemplo: 2020-01-01 00:00:00" />
+
+        <label for="fotoInput">Escolha uma foto para exibir:</label>
+        <input type="file" id="fotoInput" accept="image/*" />
+
+        <button onclick="salvarDados()">Iniciar Contador</button>
     </div>
 
     <script>
-        // Função para calcular o tempo restante
-        function calcularTempo() {
-            const dataSelecionada = document.getElementById("data").value;
-            const horaSelecionada = document.getElementById("hora").value;
-            const fotoSelecionada = document.getElementById("foto").files[0]; // Arquivo de imagem
+        function salvarDados() {
+            const data = document.getElementById("dataInput").value;
+            const foto = document.getElementById("fotoInput").files[0];
 
-            if (dataSelecionada && horaSelecionada) {
-                // Garantir que a data e hora estejam no formato correto
-                const dataHoraFinal = new Date(dataSelecionada + 'T' + horaSelecionada + ':00');
+            if (!data) {
+                alert("Por favor, insira uma data válida!");
+                return;
+            }
 
-                // Obter a data e hora atuais
-                const agora = new Date();
-                
-                // Verificar se a data e hora escolhidas são no futuro
-                if (dataHoraFinal <= agora) {
-                    alert("A data e hora já passaram.");
-                    return;
-                }
+            localStorage.setItem("dataSelecionada", data);
 
-                // Calcular os tempos em anos, dias, horas, minutos e segundos
-                const tempoRestante = dataHoraFinal - agora;
-                const segundos = Math.floor(tempoRestante / 1000);
-                const minutos = Math.floor(segundos / 60);
-                const horas = Math.floor(minutos / 60);
-                const dias = Math.floor(horas / 24);
-                const anos = Math.floor(dias / 365);
-
-                // Exibir o contador
-                const textoContador = `${anos} anos, ${dias % 365} dias, ${horas % 24} horas, ${minutos % 60} minutos, ${segundos % 60} segundos`;
-                document.getElementById("contador").textContent = textoContador;
-
-                // Exibir a foto, se houver
-                if (fotoSelecionada) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        document.getElementById("fotoImg").src = e.target.result;
-                    };
-                    reader.readAsDataURL(fotoSelecionada);
-                }
-
-                // Mostrar o resultado
-                document.getElementById("resultado").style.display = 'block';
+            if (foto) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    localStorage.setItem("fotoSelecionada", e.target.result);
+                    window.location.href = "contador.html";
+                };
+                reader.readAsDataURL(foto);
             } else {
-                alert("Por favor, insira a data e hora.");
+                window.location.href = "contador.html";
             }
         }
-
-        // Adicionar evento para submeter o formulário
-        document.getElementById("form").addEventListener("submit", function(event) {
-            event.preventDefault();
-            calcularTempo();
-        });
     </script>
+
 </body>
 </html>
