@@ -3,22 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado do Contador</title>
+    <title>Contador de Tempo - Juntos a</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
-        <h1>Juntos há...</h1>
+        <h1>Contador de Tempo <span class="romantico">Juntos a</span></h1>
 
-        <div id="contador" class="contador"></div>
+        <p id="tempoJuntos"></p>
 
-        <div id="fotoExibida"></div>
+        <img id="fotoJuntos" src="" alt="Foto do casal" style="max-width: 300px; display: none;" />
 
-        <button onclick="voltar()">Voltar</button>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        window.onload = function () {
+            const dataSelecionada = localStorage.getItem("dataSelecionada");
+            const fotoSelecionada = localStorage.getItem("fotoSelecionada");
+
+            if (dataSelecionada) {
+                // Converte a string de data para um objeto Date
+                const dataInicial = new Date(dataSelecionada);
+
+                if (isNaN(dataInicial)) {
+                    alert("A data salva é inválida.");
+                    return;
+                }
+
+                // Obtém a data e hora atuais
+                const dataAtual = new Date();
+
+                // Calcula a diferença de tempo
+                const diff = dataAtual - dataInicial; // em milissegundos
+
+                // Converte a diferença para dias, horas, minutos e segundos
+                const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((diff % (1000 * 60)) / 1000);
+
+                // Exibe o contador
+                document.getElementById("tempoJuntos").innerText = `Já se passaram ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos.`;
+
+            } else {
+                document.getElementById("tempoJuntos").innerText = "Nenhuma data foi salva.";
+            }
+
+            // Se houver uma foto salva, exibe-a
+            if (fotoSelecionada) {
+                const fotoElement = document.getElementById("fotoJuntos");
+                fotoElement.src = fotoSelecionada;
+                fotoElement.style.display = "block";
+            }
+        };
+    </script>
 
 </body>
 </html>
